@@ -1,0 +1,9 @@
+target/
+*.class
+*.log
+.idea/
+*.iml
+.vscode/
+nexora.db
+*.db-journal
+.DS_Store

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexora.controller.ProveedorController">
+
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12.0">
+        <VBox spacing="2.0">
+            <Label text="Directorio de Proveedores" styleClass="view-title"/>
+            <Label text="Gestión de empresas proveedoras y datos de contacto comercial" styleClass="view-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="➕ Nuevo Proveedor" styleClass="btn-primary" onAction="#limpiarFormulario"/>
+    </HBox>
+
+    <GridPane hgap="16.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="62.0"/>
+            <ColumnConstraints percentWidth="38.0"/>
+        </columnConstraints>
+
+        <!-- Tabla -->
+        <VBox spacing="12.0" styleClass="card" GridPane.columnIndex="0">
+            <TableView fx:id="tblProveedores" VBox.vgrow="ALWAYS" onMouseClicked="#seleccionarProveedor">
+                <columns>
+                    <TableColumn fx:id="colRuc" text="RUC" prefWidth="95.0"/>
+                    <TableColumn fx:id="colNombre" text="Razón Social" prefWidth="180.0"/>
+                    <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="90.0"/>
+                    <TableColumn fx:id="colEmail" text="Correo Electrónico" prefWidth="140.0"/>
+                    <TableColumn fx:id="colDireccion" text="Dirección" prefWidth="150.0"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+
+        <!-- Formulario -->
+        <VBox spacing="10.0" styleClass="card" GridPane.columnIndex="1">
+            <Label fx:id="lblFormTitulo" text="Detalles del Proveedor" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1e293b;"/>
+            <Separator/>
+
+            <VBox spacing="4.0">
+                <Label text="RUC:*"/>
+                <TextField fx:id="txtRuc" promptText="Ej: 20548963211"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Razón Social / Nombre:*"/>
+                <TextField fx:id="txtNombre" promptText="Ej: Distribuidora San José S.A.C."/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Teléfono:"/>
+                <TextField fx:id="txtTelefono" promptText="Ej: 954123890"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Correo Electrónico:"/>
+                <TextField fx:id="txtEmail" promptText="Ej: ventas@proveedor.pe"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Dirección:"/>
+                <TextField fx:id="txtDireccion" promptText="Ej: Av. Parra 124, Arequipa"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                <Button fx:id="btnEliminar" text="Eliminar" styleClass="btn-danger" onAction="#eliminarProveedor"/>
+                <Button text="Guardar" styleClass="btn-success" onAction="#guardarProveedor"/>
+            </HBox>
+        </VBox>
+    </GridPane>
+</VBox>

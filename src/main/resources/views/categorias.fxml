@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexora.controller.CategoriaController">
+
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12.0">
+        <VBox spacing="2.0">
+            <Label text="Gestión de Categorías" styleClass="view-title"/>
+            <Label text="Clasificación de productos (RF-02: Integridad referencial protegida)" styleClass="view-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="➕ Nueva Categoría" styleClass="btn-primary" onAction="#limpiarFormulario"/>
+    </HBox>
+
+    <GridPane hgap="16.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="60.0"/>
+            <ColumnConstraints percentWidth="40.0"/>
+        </columnConstraints>
+
+        <!-- Tabla -->
+        <VBox spacing="12.0" styleClass="card" GridPane.columnIndex="0">
+            <TableView fx:id="tblCategorias" VBox.vgrow="ALWAYS" onMouseClicked="#seleccionarCategoria">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60.0"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180.0"/>
+                    <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="250.0"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+
+        <!-- Formulario -->
+        <VBox spacing="12.0" styleClass="card" GridPane.columnIndex="1">
+            <Label fx:id="lblFormTitulo" text="Detalles de Categoría" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1e293b;"/>
+            <Separator/>
+
+            <VBox spacing="4.0">
+                <Label text="Nombre de la Categoría:*"/>
+                <TextField fx:id="txtNombre" promptText="Ej: Bebidas y Refrescos"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Descripción:"/>
+                <TextArea fx:id="txtDescripcion" promptText="Descripción general de los productos contenidos..." prefRowCount="4"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                <Button fx:id="btnEliminar" text="Eliminar" styleClass="btn-danger" onAction="#eliminarCategoria"/>
+                <Button text="Guardar" styleClass="btn-success" onAction="#guardarCategoria"/>
+            </HBox>
+        </VBox>
+    </GridPane>
+</VBox>

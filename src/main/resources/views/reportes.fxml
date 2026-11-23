@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.nexora.controller.ReporteController">
+
+    <VBox spacing="16.0">
+        <padding>
+            <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+        </padding>
+
+        <!-- Cabecera -->
+        <HBox alignment="CENTER_LEFT" spacing="12.0">
+            <VBox spacing="2.0">
+                <Label text="Reportes Financieros y Rentabilidad (Multithreading)" styleClass="view-title"/>
+                <Label text="Generación asíncrona de reportes con JavaFX Task y ExecutorService (sin congelar la UI)" styleClass="view-subtitle"/>
+            </VBox>
+        </HBox>
+
+        <!-- Filtros de Rango de Fechas y Ejecución Asíncrona -->
+        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="card">
+            <Label text="Periodo Desde:"/>
+            <DatePicker fx:id="dpInicio" prefWidth="140.0"/>
+
+            <Label text="Hasta:"/>
+            <DatePicker fx:id="dpFin" prefWidth="140.0"/>
+
+            <Button fx:id="btnGenerar" text="⚡ Generar Reporte en Segundo Plano" styleClass="btn-primary" onAction="#generarReporteAsincrono"/>
+
+            <ProgressIndicator fx:id="progresoCarga" prefWidth="24.0" prefHeight="24.0" visible="false"/>
+            <Label fx:id="lblEstado" text="Listo para procesar." style="-fx-text-fill: #64748b; -fx-font-size: 11px;"/>
+        </HBox>
+
+        <!-- Métricas Financieras (KPIs de Utilidad) -->
+        <GridPane hgap="16.0" vgap="16.0">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25.0"/>
+                <ColumnConstraints percentWidth="25.0"/>
+                <ColumnConstraints percentWidth="25.0"/>
+                <ColumnConstraints percentWidth="25.0"/>
+            </columnConstraints>
+
+            <VBox spacing="4.0" styleClass="card, kpi-accent-blue" GridPane.columnIndex="0">
+                <Label text="INGRESOS TOTALES" styleClass="kpi-title"/>
+                <Label fx:id="lblIngresos" text="S/. 0.00" styleClass="kpi-value" style="-fx-text-fill: #2563eb;"/>
+            </VBox>
+
+            <VBox spacing="4.0" styleClass="card, kpi-accent-red" GridPane.columnIndex="1">
+                <Label text="COSTO TOTAL DE VENTAS" styleClass="kpi-title"/>
+                <Label fx:id="lblCostos" text="S/. 0.00" styleClass="kpi-value" style="-fx-text-fill: #ef4444;"/>
+            </VBox>
+
+            <VBox spacing="4.0" styleClass="card, kpi-accent-green" GridPane.columnIndex="2">
+                <Label text="UTILIDAD BRUTA ESTIMADA" styleClass="kpi-title"/>
+                <Label fx:id="lblUtilidad" text="S/. 0.00" styleClass="kpi-value" style="-fx-text-fill: #10b981;"/>
+            </VBox>
+
+            <VBox spacing="4.0" styleClass="card, kpi-accent-purple" GridPane.columnIndex="3">
+                <Label text="MARGEN DE GANANCIA" styleClass="kpi-title"/>
+                <Label fx:id="lblMargen" text="0.0 %" styleClass="kpi-value" style="-fx-text-fill: #8b5cf6;"/>
+            </VBox>
+        </GridPane>
+
+        <!-- Dos Tablas: Top Productos y Detalle de Ventas del Periodo -->
+        <GridPane hgap="16.0" vgap="16.0">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50.0"/>
+                <ColumnConstraints percentWidth="50.0"/>
+            </columnConstraints>
+
+            <!-- Top Productos -->
+            <VBox spacing="10.0" styleClass="card" GridPane.columnIndex="0" prefHeight="320.0">
+                <Label text="🏆 Top Productos Más Vendidos" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1e293b;"/>
+                <TableView fx:id="tblTopProductos" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colTopCodigo" text="Código" prefWidth="80.0"/>
+                        <TableColumn fx:id="colTopNombre" text="Producto" prefWidth="180.0"/>
+                        <TableColumn fx:id="colTopCantidad" text="Cant. Vendida" prefWidth="95.0"/>
+                        <TableColumn fx:id="colTopTotal" text="Recaudado (S/.)" prefWidth="105.0"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- Ventas del Periodo -->
+            <VBox spacing="10.0" styleClass="card" GridPane.columnIndex="1" prefHeight="320.0">
+                <Label text="🧾 Ventas Realizadas en el Periodo" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1e293b;"/>
+                <TableView fx:id="tblVentasPeriodo" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colVentaId" text="Venta #" prefWidth="70.0"/>
+                        <TableColumn fx:id="colVentaFecha" text="Fecha" prefWidth="140.0"/>
+                        <TableColumn fx:id="colVentaSubtotal" text="Subtotal" prefWidth="80.0"/>
+                        <TableColumn fx:id="colVentaDescuento" text="Descuento" prefWidth="80.0"/>
+                        <TableColumn fx:id="colVentaTotal" text="Total (S/.)" prefWidth="90.0"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+        </GridPane>
+    </VBox>
+</ScrollPane>

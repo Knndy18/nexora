@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.nexora.controller.MainLayoutController"
+            prefHeight="720.0" prefWidth="1180.0" stylesheets="@../css/styles.css">
+
+    <!-- BARRA LATERAL (SIDEBAR) -->
+    <left>
+        <VBox spacing="10.0" styleClass="sidebar" prefWidth="240.0">
+            <padding>
+                <Insets top="20.0" right="12.0" bottom="20.0" left="12.0"/>
+            </padding>
+
+            <!-- Logo y Encabezado -->
+            <VBox spacing="2.0" alignment="CENTER">
+                <Label text="⚡ NEXORA" styleClass="brand-label"/>
+                <Label text="Gestión de Inventario &amp; Ventas" styleClass="brand-sublabel"/>
+                <Separator opacity="0.2">
+                    <VBox.margin>
+                        <Insets top="15.0" bottom="15.0"/>
+                    </VBox.margin>
+                </Separator>
+            </VBox>
+
+            <!-- Menú de Navegación -->
+            <VBox spacing="6.0" VBox.vgrow="ALWAYS">
+                <Button fx:id="btnDashboard" text="📊  Dashboard" maxWidth="Infinity" styleClass="nav-button, nav-button-active" onAction="#mostrarDashboard"/>
+                <Button fx:id="btnPos" text="🛒  Punto de Venta (POS)" maxWidth="Infinity" styleClass="nav-button" onAction="#mostrarPOS"/>
+                <Button fx:id="btnProductos" text="📦  Catálogo de Productos" maxWidth="Infinity" styleClass="nav-button" onAction="#mostrarProductos"/>
+                <Button fx:id="btnCategorias" text="🏷️  Categorías" maxWidth="Infinity" styleClass="nav-button" onAction="#mostrarCategorias"/>
+                <Button fx:id="btnCompras" text="📥  Compras a Proveedor" maxWidth="Infinity" styleClass="nav-button" onAction="#mostrarCompras"/>
+                <Button fx:id="btnProveedores" text="🏢  Proveedores" maxWidth="Infinity" styleClass="nav-button" onAction="#mostrarProveedores"/>
+                <Button fx:id="btnInventario" text="📋  Movimientos (Kardex)" maxWidth="Infinity" styleClass="nav-button" onAction="#mostrarInventario"/>
+                <Button fx:id="btnReportes" text="📈  Reportes y Utilidad" maxWidth="Infinity" styleClass="nav-button" onAction="#mostrarReportes"/>
+            </VBox>
+
+            <!-- Footer / Info de Versión -->
+            <VBox spacing="4.0" alignment="CENTER">
+                <Separator opacity="0.2"/>
+                <Label text="UNSA - Tecnología de Objetos" style="-fx-text-fill: #64748b; -fx-font-size: 10px;"/>
+                <Label text="v1.0.0 • SQLite JDBC Local" style="-fx-text-fill: #475569; -fx-font-size: 10px;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- CONTENEDOR CENTRAL DINÁMICO -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #f8fafc;"/>
+    </center>
+
+</BorderPane>

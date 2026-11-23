@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexora.controller.ProductoController">
+
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <!-- Encabezado -->
+    <HBox alignment="CENTER_LEFT" spacing="12.0">
+        <VBox spacing="2.0">
+            <Label text="Catálogo de Productos" styleClass="view-title"/>
+            <Label text="Mantenimiento integral (CRUD) de productos unitarios y perecibles" styleClass="view-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="➕ Nuevo Producto" styleClass="btn-primary" onAction="#limpiarFormulario"/>
+    </HBox>
+
+    <GridPane hgap="16.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="66.0"/>
+            <ColumnConstraints percentWidth="34.0"/>
+        </columnConstraints>
+
+        <!-- PANEL IZQUIERDO: Tabla de Productos y Filtros -->
+        <VBox spacing="12.0" styleClass="card" GridPane.columnIndex="0">
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <TextField fx:id="txtBuscar" promptText="🔍 Filtrar por nombre o código..." HBox.hgrow="ALWAYS" onKeyReleased="#filtrar"/>
+                <ComboBox fx:id="cmbFiltroCat" promptText="Todas las categorías" prefWidth="180.0" onAction="#filtrar"/>
+                <Button text="🔄" styleClass="btn-secondary" onAction="#cargarProductos"/>
+            </HBox>
+
+            <TableView fx:id="tblProductos" VBox.vgrow="ALWAYS" onMouseClicked="#seleccionarProductoTabla">
+                <columns>
+                    <TableColumn fx:id="colCodigo" text="Código" prefWidth="75.0"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150.0"/>
+                    <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="100.0"/>
+                    <TableColumn fx:id="colTipo" text="Tipo" prefWidth="85.0"/>
+                    <TableColumn fx:id="colStock" text="Stock" prefWidth="55.0"/>
+                    <TableColumn fx:id="colStockMin" text="Mínimo" prefWidth="55.0"/>
+                    <TableColumn fx:id="colPCompra" text="P. Compra" prefWidth="70.0"/>
+                    <TableColumn fx:id="colPVenta" text="P. Venta" prefWidth="70.0"/>
+                    <TableColumn fx:id="colVencimiento" text="Vence" prefWidth="85.0"/>
+                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="65.0"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                <Label text="* Los productos marcados con stock &lt;= mínimo activan alertas del patrón Observer."
+                       style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+            </HBox>
+        </VBox>
+
+        <!-- PANEL DERECHO: Formulario de Creación / Edición -->
+        <VBox spacing="10.0" styleClass="card" GridPane.columnIndex="1">
+            <Label fx:id="lblFormularioTitulo" text="Detalles del Producto" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1e293b;"/>
+            <Separator/>
+
+            <VBox spacing="4.0">
+                <Label text="Código:*"/>
+                <TextField fx:id="txtCodigo" promptText="Ej: BEB-004"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Nombre del Producto:*"/>
+                <TextField fx:id="txtNombre" promptText="Ej: Agua Mineral San Mateo 600ml"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Categoría:*"/>
+                <ComboBox fx:id="cmbCategoriaForm" maxWidth="Infinity"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Tipo de Producto (Herencia/Polimorfismo):*"/>
+                <ComboBox fx:id="cmbTipoForm" maxWidth="Infinity" onAction="#cambiarTipoProductoForm"/>
+            </VBox>
+
+            <VBox fx:id="vboxFechaVencimiento" spacing="4.0">
+                <Label text="Fecha de Vencimiento (Solo Perecibles):"/>
+                <DatePicker fx:id="dpFechaVencimiento" maxWidth="Infinity"/>
+            </VBox>
+
+            <HBox spacing="10.0">
+                <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                    <Label text="Precio Compra (S/.):*"/>
+                    <TextField fx:id="txtPrecioCompra" promptText="0.00"/>
+                </VBox>
+                <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                    <Label text="Precio Venta (S/.):*"/>
+                    <TextField fx:id="txtPrecioVenta" promptText="0.00"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="10.0">
+                <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                    <Label text="Stock:*"/>
+                    <TextField fx:id="txtStock" promptText="0"/>
+                </VBox>
+                <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                    <Label text="Stock Mínimo:*"/>
+                    <TextField fx:id="txtStockMinimo" promptText="5"/>
+                </VBox>
+            </HBox>
+
+            <CheckBox fx:id="chkActivo" text="Producto Activo (Visible en POS)" selected="true"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                <Button fx:id="btnDesactivar" text="Desactivar" styleClass="btn-danger" onAction="#desactivarProducto"/>
+                <Button text="Guardar" styleClass="btn-success" onAction="#guardarProducto"/>
+            </HBox>
+        </VBox>
+    </GridPane>
+</VBox>

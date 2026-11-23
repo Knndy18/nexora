@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexora.controller.InventarioController">
+
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12.0">
+        <VBox spacing="2.0">
+            <Label text="Control de Inventario y Movimientos (Kardex)" styleClass="view-title"/>
+            <Label text="Trazabilidad completa de Entradas, Salidas y Ajustes manuales" styleClass="view-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="🔄 Actualizar Kardex" styleClass="btn-secondary" onAction="#cargarMovimientos"/>
+    </HBox>
+
+    <GridPane hgap="16.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="68.0"/>
+            <ColumnConstraints percentWidth="32.0"/>
+        </columnConstraints>
+
+        <!-- PANEL IZQUIERDO: Tabla de Movimientos de Stock -->
+        <VBox spacing="12.0" styleClass="card" GridPane.columnIndex="0">
+            <Label text="📋 Registro Histórico de Movimientos" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1e293b;"/>
+
+            <TableView fx:id="tblMovimientos" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="55.0"/>
+                    <TableColumn fx:id="colFecha" text="Fecha y Hora" prefWidth="125.0"/>
+                    <TableColumn fx:id="colProducto" text="Producto" prefWidth="170.0"/>
+                    <TableColumn fx:id="colTipo" text="Tipo" prefWidth="80.0"/>
+                    <TableColumn fx:id="colCantidad" text="Cant" prefWidth="60.0"/>
+                    <TableColumn fx:id="colMotivo" text="Motivo / Operación" prefWidth="210.0"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+
+        <!-- PANEL DERECHO: Ajuste Manual de Inventario -->
+        <VBox spacing="12.0" styleClass="card" GridPane.columnIndex="1">
+            <Label text="⚙️ Ajuste Manual de Existencias" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1e293b;"/>
+            <Label text="Útil para cuadres de caja, conteo físico, mermas o productos dañados." wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 11px;"/>
+            <Separator/>
+
+            <VBox spacing="4.0">
+                <Label text="Producto:*"/>
+                <ComboBox fx:id="cmbProductoAjuste" maxWidth="Infinity" promptText="Seleccionar producto..."/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Stock Actual Registrado:"/>
+                <Label fx:id="lblStockActual" text="-" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #3b82f6;"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Nuevo Stock Real:*"/>
+                <TextField fx:id="txtNuevoStock" promptText="Ej: 25"/>
+            </VBox>
+
+            <VBox spacing="4.0">
+                <Label text="Motivo del Ajuste:*"/>
+                <TextArea fx:id="txtMotivoAjuste" promptText="Ej: Cuadre mensual de almacén / Producto roto en traslado" prefRowCount="3"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="💾 Aplicar Ajuste de Inventario" maxWidth="Infinity" prefHeight="38.0"
+                    styleClass="btn-primary" onAction="#aplicarAjuste"/>
+        </VBox>
+    </GridPane>
+</VBox>
