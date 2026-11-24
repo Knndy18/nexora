@@ -7,3 +7,13 @@ target/
 nexora.db
 *.db-journal
 .DS_Store
+
+# Documentos de exposicion y presentacion
+DIAPOSITIVAS_POO_PATRONES.md
+presentacion_nexora_poo_patrones.html
+*guion*
+*diapositiva*
+*diapositivas*
+*presentacion*.html
+*presentacion*.md
+*exposicion*
